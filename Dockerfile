@@ -1,6 +1,10 @@
 FROM python:3.10
-EXPOSE 5000
 WORKDIR /app
-RUN pip install flask
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD ["flask","run","--host","0.0.0.0"]
+EXPOSE 5000
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=development
+ENV FLASK_DEBUG=1
+CMD ["flask", "run", "--host=0.0.0.0"]
